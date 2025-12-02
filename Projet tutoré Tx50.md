@@ -1,0 +1,172 @@
+Projet tutoré Tx50
+
+
+
+Encadrants :
+
+JM Soubeyroux
+
+Octave Tessiot
+
+
+
+
+
+Sur RCP-8.5, date pivot : 2046-2065
+
+
+
+CMIP5 : 1976-2005
+
+seuil Tx50 ds TRACC 2023
+
+
+
+quand on atteindrai
+
+reçit sur l'évennement, comment ça peut se produire et comment on peut s'adapter : comment evt a démarré, contexte météo, secheresse ? Hydrologie, humidité, Z500 correspondante...
+
+
+
+années pivot sur tracc
+
+
+
+
+
+inventaire de tt les evenements depassant Tx=50 en distinguant avant/après 2050 sur les 17 modèles
+
+
+
+éliminer comportements incohérents, explosions, corretion de biais mauvaise
+
+regions les plus probables ?
+
+
+
+SAFRAN ?
+
+ERA5 ?
+
+
+
+Pour vendredi 21 :
+
+tableau avec dates dépassement Tx50, selon modèle, mettre en lumière valeurs abérantes...
+
+inventaire des dates
+
+telecharger data drias, faire graphes
+
+premieres idées statistiques \& proba de dépasser 50°C
+
+
+
+
+
+Drias : data en série temporelle en niveaux de réchauffement
+
+
+
+graphe nbr modèle dépassant Tx50 selon année
+
+
+
+date intéressante :19/07/2065 CNRM-ALADIN
+
+
+
+
+
+méthodologie de travail 
+
+
+
+Thèse Occitane Barbot 12 décembre
+
+
+
+
+
+
+
+## 
+
+## REUNION 2
+
+
+
+
+
+
+
+ecrire règles mesure de cohérence des simulations
+
+
+
+Arrive tot pas de sens, regarder **niveau de réchauffement**
+
+
+
+Stats sur fiabilité mesure par niveau réchauffement,
+
+(2 zxp at 2.7 >Tx)
+
+
+
+Synthèse écrite du tableau
+
+
+
+
+
+Impact correction de biais (élévation de Tx \& déplacement des Tx)
+
+
+
+
+
+plot distrib Tmax annuels pour chaque modèle
+
+
+
+Vérifier concordance des explosions entre nos relevés \& analyse Octave.
+
+
+
+19/07/1965
+
+27-28/07/2055
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
