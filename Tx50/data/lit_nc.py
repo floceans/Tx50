@@ -1,34 +1,47 @@
-import netCDF4
-import os
+import xarray as xr
 
-# Nom du fichier NetCDF (doit être dans le même répertoire que le script Python)
-# Remplacez "txx_CNRM-CM5_ALADIN63.nc" par le chemin complet si le fichier est ailleurs.
-fichier_netcdf = "C:\\Users\\flore\\Documents\\cours\\N7_ENM_3A\\Projet_Tx50\\Tx50\\data\\brut\\txx_CNRM-CM5_ALADIN63.nc"
+file_1 = "/home/florent/Documents/ENM_3A/Tx50/Tx50/data/brut/txx_NorESM1-M_WRF381P.nc"
+file_2 = "/home/florent/Documents/ENM_3A/Tx50/Tx50/data/cor/txx_NorESM1-M_WRF381P(1).nc"
+output_name = "difference_tasmax_corrigee.nc"
 
 try:
-    # 1. Ouvrir le fichier NetCDF en mode lecture
-    with netCDF4.Dataset(fichier_netcdf, 'r') as nc_file:
-        print(f"--- Variables trouvées dans le fichier : {fichier_netcdf} ---")
-        
-        # 2. Afficher la liste des variables
-        # La propriété 'variables' est un dictionnaire de toutes les variables du fichier.
-        noms_variables = list(nc_file.variables.keys())
-        print("Noms des variables :", noms_variables)
-        print("-" * 50)
-        
-        # 3. Afficher les détails (dimensions, unités, etc.) de chaque variable
-        for nom_var in noms_variables:
-            variable = nc_file.variables[nom_var]
-            print(f"Variable : {nom_var}")
-            print(f"  Type de données : {variable.dtype}")
-            print(f"  Dimensions : {variable.dimensions}")
-            
-            # Afficher les attributs si disponibles (comme 'units', 'long_name', etc.)
-            for attr_name in variable.ncattrs():
-                print(f"  {attr_name}: {variable.getncattr(attr_name)}")
-            print("-" * 50)
+    # 1. Ouverture des fichiers
+    ds1 = xr.open_dataset(file_1)
+    ds2 = xr.open_dataset(file_2)
+    
+    # 2. Identification des variables
+    # On récupère l'objet DataArray complet pour garder les métadonnées
+    da1 = ds1['tasmax'] if 'tasmax' in ds1 else ds1['tasmaxAdjust']
+    da2 = ds2['tasmax'] if 'tasmax' in ds2 else ds2['tasmaxAdjust']
+    
+    print(f"Variable 1 shape: {da1.shape}")
+    print(f"Variable 2 shape: {da2.shape}")
 
-except FileNotFoundError:
-    print(f"Erreur : Le fichier '{fichier_netcdf}' n'a pas été trouvé. Assurez-vous qu'il est dans le bon répertoire.")
+    # 3. Vérification de compatibilité de taille brute
+    if da1.shape != da2.shape:
+        print("ERREUR FATALE : Les dimensions brutes (Time, X, Y) ne correspondent pas.")
+    else:
+        # --- CORRECTION ICI ---
+        # On utilise .values pour extraire les tableaux Numpy bruts
+        # Cela contourne la vérification des coordonnées de xarray
+        raw_diff = da1.values - da2.values
+        
+        # 4. Reconstruction d'un DataArray xarray propre
+        # On utilise les coordonnées du premier fichier comme référence
+        diff_da = xr.DataArray(
+            data=raw_diff,
+            coords=da1.coords,
+            dims=da1.dims,
+            name='difference'
+        )
+        
+        # Ajout des métadonnées
+        diff_da.attrs['description'] = f"Difference calculée : {da1.name} - {da2.name}"
+        diff_da.attrs['units'] = da1.attrs.get('units', 'unknown')
+
+        # 5. Sauvegarde
+        diff_da.to_netcdf(output_name)
+        print(f"Succès ! Fichier '{output_name}' généré (sans explosion de mémoire).")
+
 except Exception as e:
-    print(f"Une erreur s'est produite lors de la lecture du fichier : {e}")
+    print(f"Erreur : {e}")
