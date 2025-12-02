@@ -3,7 +3,7 @@ import os
 
 # Nom du fichier NetCDF (doit être dans le même répertoire que le script Python)
 # Remplacez "txx_CNRM-CM5_ALADIN63.nc" par le chemin complet si le fichier est ailleurs.
-fichier_netcdf = "C:\\Users\\flore\\Documents\\cours\\N7_ENM_3A\\Projet_Tx50\\Tx50\\data\\cor\\txx_CNRM-CM5_ALADIN63(3).nc"
+fichier_netcdf = "C:\\Users\\flore\\Documents\\cours\\N7_ENM_3A\\Projet_Tx50\\Tx50\\data\\brut\\txx_CNRM-CM5_ALADIN63.nc"
 
 try:
     # 1. Ouvrir le fichier NetCDF en mode lecture
