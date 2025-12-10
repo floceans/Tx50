@@ -1,0 +1,3 @@
+Comparer avec obs cor et brut sur 17 modèle
+
+Regarder aux valeurs extrêmes effet de correction
